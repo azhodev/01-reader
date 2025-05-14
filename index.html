@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Читалка</title>
+  <style>
+    body {
+      margin: 20px;
+      font-size: 16px;
+      font-family: sans-serif;
+      background-color: white;
+      color: black;
+    }
+    .dark-theme {
+      background-color: #1e1e1e;
+      color: #e0e0e0;
+    }
+    #text-container {
+      max-width: 800px;
+      margin: 20px auto;
+      white-space: pre-wrap;
+      overflow-y: auto;
+      height: 500px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+    .controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+    #hidden-tester {
+      visibility: hidden;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 800px;
+      height: 500px;
+      white-space: pre-wrap;
+      overflow-y: auto;
+      border: none;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <div class="controls">
+    <button onclick="prevPage()">Назад</button>
+    <button onclick="nextPage()">Вперёд</button>
+
+    <label>Размер шрифта:
+      <input type="range" id="fontSizeSlider" min="12" max="30" value="16" onchange="updateFontSize()">
+    </label>
+
+    <label>Цвет фона:
+      <select id="themeSelector" onchange="updateTheme()">
+        <option value="light">Светлый</option>
+        <option value="dark">Тёмный</option>
+      </select>
+    </label>
+
+    <label>
+      <input type="checkbox" id="showAllCheckbox" onchange="toggleShowAll()">
+      Показать весь текст
+    </label>
+  </div>
+
+  <div id="text-container"></div>
+  <div id="hidden-tester"></div>
+
+  <script>
+    const rawText = `1. Это пример встроенного текста.
+Каждая строка здесь будет обрабатываться как отдельная строка.
+Вы можете добавить сюда любой объем текста.
+Постраничный просмотр будет разбивать его по видимому объему.
+Настройка размера шрифта влияет на отображение.
+Этот пример предназначен для использования в офлайн HTML.
+Вы можете скопировать этот файл и открыть его в браузере.
+Также он должен работать во встроенном браузере 1С.
+Светлая и тёмная темы доступны через выпадающее меню.
+Ползунок регулирует размер шрифта от 12 до 30 пикселей.
+Если шрифт увеличивается — текста на странице будет меньше.
+Если уменьшить шрифт — будет больше текста на странице.
+Пример построен без внешних зависимостей.
+Все данные и стили встроены в один HTML файл.
+Приятного использования!
+Конец примера.
+
+2. Это пример встроенного текста.
+Каждая строка здесь будет обрабатываться как отдельная строка.
+Вы можете добавить сюда любой объем текста.
+Постраничный просмотр будет разбивать его по видимому объему.
+Настройка размера шрифта влияет на отображение.
+Этот пример предназначен для использования в офлайн HTML.
+Вы можете скопировать этот файл и открыть его в браузере.
+Также он должен работать во встроенном браузере 1С.
+Светлая и тёмная темы доступны через выпадающее меню.
+Ползунок регулирует размер шрифта от 12 до 30 пикселей.
+Если шрифт увеличивается — текста на странице будет меньше.
+Если уменьшить шрифт — будет больше текста на странице.
+Пример построен без внешних зависимостей.
+Все данные и стили встроены в один HTML файл.
+Приятного использования!
+Конец примера.
+
+3. Это пример встроенного текста.
+Каждая строка здесь будет обрабатываться как отдельная строка.
+Вы можете добавить сюда любой объем текста.
+Постраничный просмотр будет разбивать его по видимому объему.
+Настройка размера шрифта влияет на отображение.
+Этот пример предназначен для использования в офлайн HTML.
+Вы можете скопировать этот файл и открыть его в браузере.
+Также он должен работать во встроенном браузере 1С.
+Светлая и тёмная темы доступны через выпадающее меню.
+Ползунок регулирует размер шрифта от 12 до 30 пикселей.
+Если шрифт увеличивается — текста на странице будет меньше.
+Если уменьшить шрифт — будет больше текста на странице.
+Пример построен без внешних зависимостей.
+Все данные и стили встроены в один HTML файл.
+Приятного использования!
+Конец примера.
+
+4. Это пример встроенного текста.
+Каждая строка здесь будет обрабатываться как отдельная строка.
+Вы можете добавить сюда любой объем текста.
+Постраничный просмотр будет разбивать его по видимому объему.
+Настройка размера шрифта влияет на отображение.
+Этот пример предназначен для использования в офлайн HTML.
+Вы можете скопировать этот файл и открыть его в браузере.
+Также он должен работать во встроенном браузере 1С.
+Светлая и тёмная темы доступны через выпадающее меню.
+Ползунок регулирует размер шрифта от 12 до 30 пикселей.
+Если шрифт увеличивается — текста на странице будет меньше.
+Если уменьшить шрифт — будет больше текста на странице.
+Пример построен без внешних зависимостей.
+Все данные и стили встроены в один HTML файл.
+Приятного использования!
+Конец примера.`
+
+    const paragraphs = rawText.split('\n');
+    const container = document.getElementById('text-container');
+    const tester = document.getElementById('hidden-tester');
+    const slider = document.getElementById('fontSizeSlider');
+    const checkbox = document.getElementById('showAllCheckbox');
+    const themeSelector = document.getElementById('themeSelector');
+
+    let fontSize = 16;
+    let showAll = false;
+    let pageChunks = [];
+    let currentPage = 0;
+
+    function paginateText() {
+        pageChunks = [];
+        let buffer = "";
+        let i = 0;
+      
+        while (i < paragraphs.length) {
+          let tempBuffer = buffer + paragraphs[i] + '\n';
+          container.innerText = tempBuffer;
+      
+          if (container.scrollHeight > container.clientHeight && buffer !== "") {
+            pageChunks.push(buffer.trim());
+            buffer = paragraphs[i] + '\n';
+          } else {
+            buffer = tempBuffer;
+          }
+          i++;
+        }
+      
+        if (buffer.trim() !== "") {
+          pageChunks.push(buffer.trim());
+        }
+      
+        currentPage = 0;
+      }
+      
+
+    function renderPage() {
+      container.style.fontSize = fontSize + 'px';
+      if (showAll) {
+        container.innerText = paragraphs.join('\n');
+      } else {
+        container.innerText = pageChunks[currentPage] || "";
+      }
+    }
+
+    function nextPage() {
+      if (!showAll && currentPage < pageChunks.length - 1) {
+        currentPage++;
+        renderPage();
+      }
+    }
+
+    function prevPage() {
+      if (!showAll && currentPage > 0) {
+        currentPage--;
+        renderPage();
+      }
+    }
+
+    function updateFontSize() {
+      fontSize = parseInt(slider.value);
+      container.style.fontSize = fontSize + 'px';
+      tester.style.fontSize = fontSize + 'px';
+      paginateText();
+      renderPage();
+    }
+
+    function toggleShowAll() {
+      showAll = checkbox.checked;
+      renderPage();
+    }
+
+    function updateTheme() {
+      const theme = themeSelector.value;
+      if (theme === 'dark') {
+        document.body.classList.add('dark-theme');
+      } else {
+        document.body.classList.remove('dark-theme');
+      }
+    }
+
+    // Инициализация
+    window.addEventListener('load', () => {
+      tester.style.visibility = 'hidden';
+      updateFontSize();
+    });
+
+    window.addEventListener('resize', () => {
+      paginateText();
+      renderPage();
+    });
+  </script>
+</body>
+</html>
