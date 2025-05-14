@@ -81,7 +81,7 @@
   <div id="hidden-tester"></div>
 
   <script>
-    // Заглушка текста - начало
+    // Заглушка текста - НАЧАЛО
 
     let text = `1. Это пример встроенного текста. Каждая строка здесь будет обрабатываться как отдельная строка. Вы можете добавить сюда любой объем текста. Постраничный просмотр будет разбивать его по видимому объему. Настройка размера шрифта влияет на отображение. Этот пример предназначен для использования в офлайн HTML. Вы можете скопировать этот файл и открыть его в браузере. Также он должен работать во встроенном браузере 1С. Светлая и тёмная темы доступны через выпадающее меню. Ползунок регулирует размер шрифта от 12 до 30 пикселей. Если шрифт увеличивается — текста на странице будет меньше. Если уменьшить шрифт — будет больше текста на странице. Пример построен без внешних зависимостей. Все данные и стили встроены в один HTML файл. Приятного использования! Конец примера.
 
@@ -102,13 +102,13 @@
       paginateText();
       renderPage();
     }
-    // Заглушка текста - конец
+    // Заглушка текста - КОНЕЦ
     
 
     // Для 1С (раскомментировать при использовании):
     // const base64Text = window.external.GetText();
 
-    // Получение текста из base64 (пример встроен)
+    // Для заглушки (закомментировать при использовании):
     let base64Text = toBase64Unicode(text);
     
     function toBase64Unicode(str) {
@@ -132,7 +132,6 @@
     let themeSelector = document.getElementById('themeSelector');
 
     let fontSize = 16;
-    let showAll = false;
     let pageChunks = [];
     let currentPage = 0;
 
@@ -166,7 +165,7 @@
 
     function renderPage() {
       container.style.fontSize = fontSize + 'px';
-      if (showAll) {
+      if (checkbox.checked) {
         container.innerText = decodedText;
       } else {
         container.innerText = pageChunks[currentPage] || "";
@@ -174,14 +173,14 @@
     }
 
     function nextPage() {
-      if (!showAll && currentPage < pageChunks.length - 1) {
+      if (!checkbox.checked && currentPage < pageChunks.length - 1) {
         currentPage++;
         renderPage();
       }
     }
 
     function prevPage() {
-      if (!showAll && currentPage > 0) {
+      if (!checkbox.checked && currentPage > 0) {
         currentPage--;
         renderPage();
       }
@@ -196,7 +195,6 @@
     }
 
     function toggleShowAll() {
-      showAll = checkbox.checked;
       renderPage();
     }
 
